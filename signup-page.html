@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymerfire/firebase-app.html">
 <link rel="import" href="../google-youtube/google-youtube.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -120,16 +119,18 @@ Sign up page for a site
 
     </style>
 
-    <firebase-app
-      id="firebase"
-      auth-domain="AIzaSyDyhoYf3Q5gUq1VvkzEgHZGztCbV7pyssw"
-      database-url="https://signup-form-bf7ee.firebaseio.com"
-      api-key="AIzaSyDyhoYf3Q5gUq1VvkzEgHZGztCbV7pyssw">
-    </firebase-app>
-
-    <firebase-document
-        location="https://signup-form-bf7ee.firebaseio.firebaseio.com/leads">
-    </firebase-document>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDyhoYf3Q5gUq1VvkzEgHZGztCbV7pyssw",
+        authDomain: "signup-form-bf7ee.firebaseapp.com",
+        databaseURL: "https://signup-form-bf7ee.firebaseio.com",
+        storageBucket: "signup-form-bf7ee.appspot.com",
+        messagingSenderId: "264125833141"
+      };
+      firebase.initializeApp(config);
+    </script>
 
     <body>
 
@@ -142,13 +143,13 @@ Sign up page for a site
                   </div>
                   <div id="form-fields">
                     <h3>Find Out More</h3>
-                      <gold-email-input id="email" name="email" required auto-validate error-message="Please enter a valid email" label="Your Email" autocomplete="email"></gold-email-input>
+                      <gold-email-input value="{{email}}" id="email" name="email" required auto-validate error-message="Please enter a valid email" label="Your Email" autocomplete="email"></gold-email-input>
                       
-                      <paper-input id="name" name="name" label="Your Name" required autocomplete="name"></paper-input>
+                      <paper-input value="{{name}}" name="name" label="Your Name" required autocomplete="name"></paper-input>
                       
-                      <paper-input id="organisation" label="Your Organisation" autocomplete="organization"></paper-input>
+                      <paper-input value="{{organisation}}" name="organisation" label="Your Organisation" autocomplete="organization"></paper-input>
                       
-                      <paper-input id="phone" name="phone" label="Your Phone Number" autocomplete="tel"></paper-input>             
+                      <paper-input value="{{phone}}"  name="phone" label="Your Phone Number" autocomplete="tel"></paper-input>             
                   </div>
                 </form>
 
@@ -157,7 +158,7 @@ Sign up page for a site
                     <paper-button raised id="lead" on-tap="addlead">Contact Me</paper-button>               
                   </div>
                   
-                <paper-toast id="required-notice" text="You are missing some form items. Try again"></paper-toast>
+                <paper-toast id="required-notice" text="You are missing some information. Try again"></paper-toast>
 
                 <paper-toast id="success-email" text="Thank you for signing up for a Newsletter"></paper-toast>
 
@@ -200,19 +201,8 @@ Sign up page for a site
 
       is: 'signup-page',
 
-  properties: {
-    firebase: {
-      type: String
-    },
-    ref: {
-      computed: 'setFirebase(firebase)'
-    }
-  },
   ready: function() {
     // Ready to go
-  },
-  setFirebase: function(firebase) {
-    return new Firebase(firebase);
   },
   validate: function(value, re) {
     if (re === undefined) {
@@ -222,46 +212,44 @@ Sign up page for a site
   },
   addnewsletter: function(event) {
     var type = "newsletter";
-    var email = this.$.email;
-    var name = this.$.name;
-    var phone = this.$.phone;
-    var organisation = this.$.organisation;
-    if (!this.validate(email.value)) {
+    var email = this.email;
+    var name = this.name;
+    var phone = this.phone;
+    var organisation = this.organisation;
+    if (!this.validate(email)) {
       this.$['required-notice'].open();
       return;
     }
-    if (!email.validate()) {
-      return;
-    }
-    this.ref.push({
-        type: type.value,
-        email: email.value,
-        name: name.value,
-        phone: phone.value,
-        organisation: organisation.value,
+    // if (this.$.email.validate()) {
+    //   return;
+    // }
+    firebase.database().ref('/'+type+'/').push({
+        email: email,
+        name: name,
+        phone: phone,
+        organisation: organisation,
         referer: window.location.pathname
       });
     this.$['success-email'].open();
   },
   addlead: function(event) {
     var type = "lead";
-    var email = this.$.email;
-    var name = this.$.name;
-    var phone = this.$.phone;
-    var organisation = this.$.organisation;
-    if (!this.validate(email.value)) {
+    var email = this.email;
+    var name = this.name;
+    var phone = this.phone;
+    var organisation = this.organisation;
+    if (!this.validate(email)) {
       this.$['required-notice'].open();
       return;
     }
-    if (!email.validate()) {
-      return;
-    }
-    this.ref.push({
-        type: type.value,
-        email: email.value,
-        name: name.value,
-        phone: phone.value,
-        organisation: organisation.value,
+    // if (this.$.email.validate()) {
+    //   return;
+    // }
+    firebase.database().ref(type).push({
+        email: email,
+        name: name,
+        phone: phone,
+        organisation: organisation,
         referer: window.location.pathname
       });
     this.$['success-contactus'].open();
