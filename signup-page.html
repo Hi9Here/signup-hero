@@ -1,0 +1,295 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase-app.html">
+<link rel="import" href="../google-youtube/google-youtube.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/communication-icons.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../gold-email-input/gold-email-input.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<!--
+`signup-page`
+Sign up page for a site
+
+@demo demo/index.html 
+-->
+
+<dom-module id="signup-page">
+  <template>
+    <style>
+    :host {
+      --iron-image-min-width: 250px;
+      --iron-image-max-width: 450px;
+      --paper-input-container-color: #333;
+      --paper-input-container-focus-color: #f05455;
+      @apply(--layout-center-justified);
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+      --paper-input-container-input-color: #333;
+      --paper-input-container-underline: {
+        #f05455;
+      }
+      --paper-input-container-label: {
+        font-size: 20px;
+        font-family: Roboto, Helvetica, sans-serif;
+        color: #f05455;
+      }
+      --paper-input-container: {
+        font-size: 20px;
+        font-family: Roboto, Helvetica, sans-serif;
+        color: #333;
+      }
+      paper-input-container-label-floating: {
+        color: #f05455;
+      }
+
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+    }
+    .col {
+      width: 500px; 
+      margin: 20px;
+      padding: 20px;
+      @apply(--layout-center-justified);
+      @apply(--layout-horizontal);
+      min-width: 300px;
+      max-width: 500px;
+      height: 580px;
+    }
+    .box {
+      min-width: 240px;
+      max-width: 450px;
+    }
+    h1 {
+      color: #333;
+    }
+    h2 {
+      color: #333;
+      font-family: Roboto, Arial, Helvetica, sans-serif;
+      font-weight: 300;
+      font-size: 25px;
+    }
+    h3 {
+      color: #333;
+      font-family: Roboto, Arial, Helvetica, sans-serif;
+      font-weight: 300;
+      font-size: 20px;
+      margin-bottom: -10px;
+    }
+    paper-input {
+    }
+    #sell {
+      height: 100%;
+    }
+    #sell-title {
+      height: 40%;
+    }
+    #sell-content {
+    }
+    .buttonBox {
+      @apply(--layout-center-justified);
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+    }
+    #options {
+    }
+    paper-button {
+      background: #f05455;
+      color: #fff;
+      width: 130px;
+      height: 50px;
+      margin: 10px;
+      padding: 10px;
+      @apply(--paper-font-button);
+    }
+    paper-button:hover {
+      background: var(--paper-pink-a100);
+    }
+    paper-dialog {
+      background: #f05455;
+      color: #fff;
+    }
+
+    </style>
+
+    <firebase-app
+      id="firebase"
+      auth-domain="AIzaSyDyhoYf3Q5gUq1VvkzEgHZGztCbV7pyssw"
+      database-url="https://signup-form-bf7ee.firebaseio.com"
+      api-key="AIzaSyDyhoYf3Q5gUq1VvkzEgHZGztCbV7pyssw">
+    </firebase-app>
+
+    <firebase-document
+        location="https://signup-form-bf7ee.firebaseio.firebaseio.com/leads">
+    </firebase-document>
+
+    <body>
+
+        <paper-material class="col">
+          <div class="box">
+
+                <form is="iron-form" id="form" method="post" action="/form/handler">
+                  <div id="form-title">
+                    <h2><p>Hi9 makes Technology Simple for Everyone.</p><p>We believe Technology should be made Simplier. Not be Trained to Use Technology.</p></h2>
+                  </div>
+                  <div id="form-fields">
+                    <h3>Find Out More</h3>
+                      <gold-email-input id="email" name="email" required auto-validate error-message="Please enter a valid email" label="Your Email" autocomplete="email"></gold-email-input>
+                      
+                      <paper-input id="name" name="name" label="Your Name" required autocomplete="name"></paper-input>
+                      
+                      <paper-input id="organisation" label="Your Organisation" autocomplete="organization"></paper-input>
+                      
+                      <paper-input id="phone" name="phone" label="Your Phone Number" autocomplete="tel"></paper-input>             
+                  </div>
+                </form>
+
+                  <div class="buttonBox">
+                    <paper-button raised id="newsletter" on-click="addnewsletter">Newsletter</paper-button>
+                    <paper-button raised id="lead" on-tap="addlead">Contact Me</paper-button>               
+                  </div>
+                  
+                <!--<paper-dialog id="required-notice">
+                  <h2>Missing Fields</h2>
+
+                  <paper-dialog-scrollable>
+                    <h2>It appears you're missing some form items. Please try again.</h2>
+                  </paper-dialog-scrollable>
+
+                  <div class="buttons">
+                    <paper-button dialog-dismiss>OK</paper-button>
+                  </div>
+                </paper-dialog>
+
+                <paper-dialog id="success-notice">
+                  <h2>Request Sent</h2>
+
+                  <paper-dialog-scrollable>
+                    <h2>Your request has been sent, we will be in contact with you shortly.</h2>
+                  </paper-dialog-scrollable>
+
+                  <div class="buttons">
+                    <paper-button dialog-dismiss>OK</paper-button>
+                  </div>
+                </paper-dialog>-->
+
+            </div>
+        </paper-material>
+
+        <paper-material class="col">
+          <div class="box">
+            <div id="sell">
+              <div id="sell-title">
+                <h3>As a Proud Member of Google's' Launchpad Program We Have a Video That Explain Us Even Better </h3>
+              </div>
+              <div id="sell-content">
+                <google-youtube
+                  video-id="V2ScdGQH_60"
+                  rel="0"
+                  start="5"
+                  autoplay="0"
+                  fluid="true"
+                  controls="0"
+                  modestbranding="1"
+                  showinfo="0"
+                  iv_load_policy="3"
+                  rel="0"
+                  >
+                </google-youtube>
+              </div>
+            </div>
+          </div>
+        </paper-material>
+
+    </body>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'signup-page',
+
+  properties: {
+    firebase: {
+      type: String
+    },
+    ref: {
+      computed: 'setFirebase(firebase)'
+    }
+  },
+  ready: function() {
+    // Ready to roll
+  },
+  setFirebase: function(firebase) {
+    return new Firebase(firebase);
+  },
+  validate: function(value, re) {
+    if (re === undefined) {
+      return value !== undefined && value !== '';
+    }
+    return re.test(value);
+  },
+  addnewsletter: function(event) {
+    var type = "newsletter";
+    var name = this.$.name;
+    var email = this.$.email;
+    var phone = this.$.phone;
+    var organisation = this.$.organisation;
+    if (!this.validate(email.value)) {
+      this.$['required-notice'].open();
+      return;
+    }
+    if (!email.validate()) {
+      return;
+    }
+    this.ref.push({
+        type: type.value,
+        email: email.value,
+        name: name.value,
+        phone: phone.value,
+        organisation: organisation.value,
+        referer: window.location.pathname
+      });
+    this.$['success-notice'].open();
+  },
+  addlead: function(event) {
+    var type = "lead";
+    var name = this.$.name;
+    var email = this.$.email;
+    var phone = this.$.phone;
+    var organisation = this.$.organisation;
+    if (!this.validate(email.value)) {
+      this.$['required-notice'].open();
+      return;
+    }
+    if (!email.validate()) {
+      return;
+    }
+    this.ref.push({
+        type: type.value,
+        email: email.value,
+        name: name.value,
+        phone: phone.value,
+        organisation: organisation.value,
+        referer: window.location.pathname
+      });
+    this.$['success-notice'].open();
+  }
+});
+  </script>
+
+</dom-module>
