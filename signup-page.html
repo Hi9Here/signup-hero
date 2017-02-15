@@ -159,7 +159,7 @@ Sign up page for a site
                   
                 <paper-toast id="required-notice" text="You are missing some form items. Try again"></paper-toast>
 
-                <paper-toast id="success-notice" text="Thank you for signing up for a Newsletter"></paper-toast>
+                <paper-toast id="success-email" text="Thank you for signing up for a Newsletter"></paper-toast>
 
                 <paper-toast id="success-contactus" text="Someone Will Contact Your Very Soon"></paper-toast>
 
@@ -222,8 +222,8 @@ Sign up page for a site
   },
   addnewsletter: function(event) {
     var type = "newsletter";
-    var name = this.$.name;
     var email = this.$.email;
+    var name = this.$.name;
     var phone = this.$.phone;
     var organisation = this.$.organisation;
     if (!this.validate(email.value)) {
@@ -241,12 +241,12 @@ Sign up page for a site
         organisation: organisation.value,
         referer: window.location.pathname
       });
-    this.$['success-notice'].open();
+    this.$['success-email'].open();
   },
   addlead: function(event) {
     var type = "lead";
-    var name = this.$.name;
     var email = this.$.email;
+    var name = this.$.name;
     var phone = this.$.phone;
     var organisation = this.$.organisation;
     if (!this.validate(email.value)) {
