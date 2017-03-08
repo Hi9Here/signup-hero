@@ -28,92 +28,91 @@ Sign up page for a site
 <dom-module id="signup-page">
   <template>
     <style>
-    :host {
-      --iron-image-min-width: 250px;
-      --iron-image-max-width: 450px;
-      --paper-input-container-color: #333;
-      --paper-input-container-focus-color: #f05455;
-      @apply(--layout-center-justified);
-      @apply(--layout-horizontal);
-      @apply(--layout-wrap);
-      --paper-input-container-input-color: #333;
-      --paper-input-container-underline: {
-        #f05455;
+      :host {
+        --iron-image-min-width: 250px;
+        --iron-image-max-width: 450px;
+        --paper-input-container-color: #333;
+        --paper-input-container-focus-color: #f05455;
+        @apply(--layout-center-justified);
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        --paper-input-container-input-color: #333;
+        --paper-input-container-underline: {
+          #f05455;
+        }
+        --paper-input-container-label: {
+          font-size: 20px;
+          font-family: Roboto, Helvetica, sans-serif;
+          color: #f05455;
+        }
+        --paper-input-container: {
+          font-size: 20px;
+          font-family: Roboto, Helvetica, sans-serif;
+          color: #333;
+        }
+        paper-input-container-label-floating: {
+          color: #f05455;
+        }
+
       }
-      --paper-input-container-label: {
-        font-size: 20px;
-        font-family: Roboto, Helvetica, sans-serif;
-        color: #f05455;
+      body {
+        margin: 0;
+        height: 100vh;
       }
-      --paper-input-container: {
-        font-size: 20px;
-        font-family: Roboto, Helvetica, sans-serif;
+      .col {
+        width: 500px; 
+        margin: 20px;
+        padding: 20px;
+        @apply(--layout-center-justified);
+        @apply(--layout-horizontal);
+        min-width: 300px;
+        max-width: 500px;
+        height: 580px;
+      }
+      .box {
+        min-width: 240px;
+        max-width: 450px;
+      }
+      h1 {
         color: #333;
       }
-      paper-input-container-label-floating: {
-        color: #f05455;
+      h2 {
+        color: #333;
+        font-family: Roboto, Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 25px;
       }
-
-    }
-    body {
-      margin: 0;
-      height: 100vh;
-    }
-    .col {
-      width: 500px; 
-      margin: 20px;
-      padding: 20px;
-      @apply(--layout-center-justified);
-      @apply(--layout-horizontal);
-      min-width: 300px;
-      max-width: 500px;
-      height: 580px;
-    }
-    .box {
-      min-width: 240px;
-      max-width: 450px;
-    }
-    h1 {
-      color: #333;
-    }
-    h2 {
-      color: #333;
-      font-family: Roboto, Arial, Helvetica, sans-serif;
-      font-weight: 300;
-      font-size: 25px;
-    }
-    h3 {
-      color: #333;
-      font-family: Roboto, Arial, Helvetica, sans-serif;
-      font-weight: 300;
-      font-size: 20px;
-      margin-bottom: -10px;
-    }
-    .buttonBox {
-      @apply(--layout-center-justified);
-      @apply(--layout-horizontal);
-      @apply(--layout-wrap);
-    }
-    paper-button {
-      background: #f05455;
-      color: #fff;
-      width: 130px;
-      height: 50px;
-      margin: 10px;
-      padding: 10px;
-      @apply(--paper-font-button);
-    }
-    paper-button:hover {
-      background: var(--paper-pink-a100);
-    }
-    paper-dialog {
-      background: #f05455;
-      color: #fff;
-    }
-    paper-material {
-      background: #fff;
-    }
-
+      h3 {
+        color: #333;
+        font-family: Roboto, Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        margin-bottom: -10px;
+      }
+      .buttonBox {
+        @apply(--layout-center-justified);
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+      }
+      paper-button {
+        background: #f05455;
+        color: #fff;
+        width: 130px;
+        height: 50px;
+        margin: 10px;
+        padding: 10px;
+        @apply(--paper-font-button);
+      }
+      paper-button:hover {
+        background: var(--paper-pink-a100);
+      }
+      paper-dialog {
+        background: #f05455;
+        color: #fff;
+      }
+      paper-material {
+        background: #fff;
+      }
     </style>
 
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
