@@ -31,7 +31,7 @@ Sign up page for a site
     <style>
       :host {
         --iron-image-min-width: 250px;
-        --iron-image-max-width: 450px;
+        --iron-image-max-width: 380px;
         --paper-input-container-color: #333;
         --paper-input-container-focus-color: #f05455;
         @apply(--layout-center-justified);
@@ -61,18 +61,17 @@ Sign up page for a site
         height: 100vh;
       }
       .col {
-        width: 500px; 
         margin: 20px;
         padding: 20px;
         @apply(--layout-center-justified);
         @apply(--layout-horizontal);
-        min-width: 300px;
-        max-width: 500px;
-        height: 580px;
+        min-width: 250px;
+        max-width: 380px;
+        height: 620px;
       }
       .box {
         min-width: 240px;
-        max-width: 450px;
+        max-width: 370px;
       }
       h1 {
         color: #333;
@@ -132,6 +131,7 @@ Sign up page for a site
     <body>
 
         <paper-material class="col">
+
           <div class="box">
 
                 <form is="iron-form" id="form" method="post" action="/form/handler">
@@ -162,12 +162,15 @@ Sign up page for a site
                 <paper-toast id="success-contactus" text="Someone Will Contact Your Very Soon"></paper-toast>
 
             </div>
+
         </paper-material>
 
         <paper-material class="col">
+
           <div class="box">
            <content></content>
           </div>
+
         </paper-material>
 
     </body>
